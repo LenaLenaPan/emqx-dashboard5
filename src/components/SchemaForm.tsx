@@ -560,24 +560,6 @@ const SchemaForm = defineComponent({
       return data
     }
 
-    const handleSSLRuleWhenUseConciseSSL = (rules: any) => {
-      // Remove this after correct rule
-      const walkRule = (rules: any) => {
-        Object.keys(rules).forEach((key) => {
-          const propItem = rules[key]
-          if (typeof propItem === 'object') {
-            if (key === SSL_KEY) {
-              Reflect.deleteProperty(rules, key)
-            } else {
-              walkRule(propItem)
-            }
-          }
-        })
-      }
-      walkRule(rules)
-      return rules
-    }
-
     const sortPropKeys = (propKeys: Array<string>) => {
       if (!props.propsOrderMap) {
         return propKeys
@@ -717,7 +699,6 @@ const SchemaForm = defineComponent({
           configForm.value = handleSSLDataWhenUseConciseSSL(configForm.value)
         }
       }
-      handleSSLRuleWhenUseConciseSSL(rules.value)
     }
 
     watch(
@@ -744,7 +725,6 @@ const SchemaForm = defineComponent({
           let newRecord = initRecordByComponents(components.value)
           if (typesNeedConciseSSL.includes(props.type)) {
             newRecord = handleSSLDataWhenUseConciseSSL(newRecord)
-            handleSSLRuleWhenUseConciseSSL(rules.value)
           }
 
           ctx.emit('component-change', {

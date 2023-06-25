@@ -5,6 +5,7 @@ import { cloneDeep, get } from 'lodash'
 import { Ref, ref } from 'vue'
 import { useStore } from 'vuex'
 import useSchemaFormRules, { SchemaRules } from './useSchemaFormRules'
+import { FormRules } from '@/types/common'
 
 const CONNECTOR_KEY = 'connector'
 
@@ -33,7 +34,7 @@ export default function useSchemaForm(
   objForGetComponent: { path?: string; ref?: string | Array<string> },
   needRules = false,
 ): {
-  rules: Ref<SchemaRules>
+  rules: Ref<FormRules>
   components: Ref<Properties>
   schemaLoadPromise: Promise<void>
   getComponents: (objForGetComponent: { path?: string; ref?: string | Array<string> }) => Properties
