@@ -22,6 +22,17 @@ import { createEventForm, createFunctionItem, createMessageForm } from './useNod
 import useParseWhere from './useParseWhere'
 
 /**
+ * ID rule of each node
+ * - event - `event-{val}`
+ * - topic - `topic-{val}`
+ * - console - `console`
+ * - bridge - `{bridgeType}-{bridgeID}`
+ * - repub - `republish-{topic}`
+ * - filter - `filter-{ruleID}`
+ * - function - `function-{ruleID}`
+ */
+
+/**
  * Sort by column
  */
 type GroupedNode = {

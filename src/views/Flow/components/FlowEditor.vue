@@ -82,9 +82,9 @@ import useFlowEditor, { MsgKey, NodeItem } from '@/hooks/Flow/useFlowEditor'
 import useFlowNode, { NodeType } from '@/hooks/Flow/useFlowNode'
 import useI18nTl from '@/hooks/useI18nTl'
 import { Delete, Search } from '@element-plus/icons-vue'
-import { Node, NodeMouseEvent, NodeProps, VueFlow, useVueFlow } from '@vue-flow/core'
+import { Edge, Node, NodeMouseEvent, NodeProps, VueFlow, useVueFlow } from '@vue-flow/core'
 import { pick } from 'lodash'
-import { Ref, computed, defineExpose, defineProps, ref } from 'vue'
+import { PropType, Ref, computed, defineExpose, defineProps, ref, watch } from 'vue'
 import FlowGuide from './FlowGuide.vue'
 import FlowNode from './FlowNode.vue'
 import NodeDrawer from './NodeDrawer.vue'
@@ -93,6 +93,9 @@ const props = defineProps({
   flowName: {
     type: String,
     default: '',
+  },
+  data: {
+    type: Array as PropType<Array<Node | Edge>>,
   },
 })
 
@@ -235,6 +238,15 @@ const getFlowData = () => {
 }
 
 onConnect((params) => addEdges(params))
+
+watch(
+  () => props.data,
+  (nVal) => {
+    if (nVal && nVal.length) {
+      flowData.value = nVal
+    }
+  },
+)
 
 defineExpose({ validate, getFlowData })
 </script>
